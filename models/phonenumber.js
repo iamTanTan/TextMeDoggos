@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const phonenumberSchema = new mongoose.Schema({
     number: {
-        type: Number,
+        type: String,
         required: true
     }
 })

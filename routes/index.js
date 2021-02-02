@@ -2,43 +2,52 @@ const express = require('express')
 const router = express.Router()
 const Phonenumber = require('../models/phonenumber')
 const bodyParser = require('body-parser')
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var urlencodedParser = bodyParser.urlencoded({
+    extended: false
+})
 const _ = require('lodash')
+const sendDogMessage = require('../twilio-api.js')
 
 router.get('/', (req, res) => {
     res.render('index')
 })
 
-router.post('/',urlencodedParser, function(req, res) {
+router.post('/', urlencodedParser, function (req, res) {
 
-    const inputNumber = req.body.p;
-    console.log(inputNumber);
-    const cleanedNumber = _.replace(inputNumber, '-', '')
-    
+    // Retrieve and clean data from user
+    const rawInputNumber = req.body.p;
+    const cleanedNumber = "+1" + _.camelCase(rawInputNumber)
 
+    // Determine if Phone Number already exists in system
     Phonenumber.findOne({
-            number: inputNumber
+            number: cleanedNumber
         }, (err, foundNum) => {
             if (!err) {
                 if (!foundNum) {
-                    console.log(foundNum);
+
                     const phoneNumber = new Phonenumber({
-                        number: inputNumber
+                        number: cleanedNumber
                     })
 
+                    // Add number to database if not found
                     phoneNumber.save((err) => {
                         if (err) {
                             console.log(err);
                         } else {
+                            console.log(phoneNumber.number)
+                            sendDogMessage(phoneNumber.number)
                             res.render('success')
                         }
                     })
-                    
+
                 } else {
+                    // Inform User of already being signed up
+                    console.log("Number: " + foundNum.number + " already in database");
                     res.render('failure')
                 }
 
             } else {
+                // Catches unforeseen errors
                 res.send("Sorry, we are doing maintenance")
             }
         }
