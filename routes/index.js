@@ -3,7 +3,7 @@ const router = express.Router()
 const Phonenumber = require('../models/phonenumber')
 const bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+const _ = require('lodash')
 
 router.get('/', (req, res) => {
     res.render('index')
@@ -13,6 +13,8 @@ router.post('/',urlencodedParser, function(req, res) {
 
     const inputNumber = req.body.p;
     console.log(inputNumber);
+    const cleanedNumber = _.replace(inputNumber, '-', '')
+    
 
     Phonenumber.findOne({
             number: inputNumber
