@@ -1,3 +1,4 @@
+// Import Statements
 const express = require('express')
 const router = express.Router()
 const Phonenumber = require('../models/phonenumber')
@@ -6,7 +7,7 @@ var urlencodedParser = bodyParser.urlencoded({
     extended: false
 })
 const _ = require('lodash')
-const sendDogMessage = require('../twilio-api.js')
+const sendDogMessage = require('../api/twilio-api.js')
 
 router.get('/', (req, res) => {
     res.render('index')

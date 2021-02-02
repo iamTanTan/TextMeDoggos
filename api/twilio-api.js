@@ -1,7 +1,7 @@
-require('dotenv').config();
+// Import Statements
 const dogNames = require('dog-names');
 const getDogImage = require('./dog-api.js');
-/*************************************************************************************/
+
 // Twilio 
 const twilioNumber = process.env.MY_TWILIO_NUMBER;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;

@@ -1,5 +1,4 @@
 //  Import Statements
-require('dotenv').config();
 const axios = require('axios');
 
 /*************************************************************************************/
