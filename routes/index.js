@@ -37,7 +37,7 @@ router.post('/', urlencodedParser, function (req, res) {
                         } else {
                             console.log(phoneNumber.number)
                             sendDogMessage(phoneNumber.number).then(() => {
-                                console.log("Should have sent!")
+                                Promise.resolve("Should have sent!")
                                 res.render('success')
                             })
                         }
