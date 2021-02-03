@@ -17,12 +17,6 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({
     extended: false
 }))
-const proxy = require('http-proxy-middleware')
-
-module.exports = function(app) {
-    // add other server routes to path array
-    app.use(proxy(['/api' ], { target: 'http://localhost:5000' }));
-} 
 
 app.use('/', indexRouter)
 

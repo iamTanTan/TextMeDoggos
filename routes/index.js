@@ -8,54 +8,65 @@ var urlencodedParser = bodyParser.urlencoded({
 })
 const _ = require('lodash')
 const sendDogMessage = require('../api/twilio-api.js')
+const getDogImage = require('../api/dog-api.js')
+
 
 router.get('/', (req, res) => {
     res.render('index')
 })
 
-router.post('/', urlencodedParser, function (req, res) {
+router.post('/', urlencodedParser, async (req, res) => {
 
-    // Retrieve and clean data from user
-    const rawInputNumber = req.body.p;
-    const cleanedNumber = "+1" + _.camelCase(rawInputNumber)
+    try {
+        // Retrieve and clean data from user
+        const rawInputNumber = req.body.p;
+        const cleanedNumber = "+1" + _.camelCase(rawInputNumber)
 
-    // Determine if Phone Number already exists in system
-    Phonenumber.findOne({
-            number: cleanedNumber
-        }, (err, foundNum) => {
-            if (!err) {
-                if (!foundNum) {
+        //  For debugging only
+        const image = await getDogImage()
+        console.log(image)
 
-                    const phoneNumber = new Phonenumber({
-                        number: cleanedNumber
-                    })
+        // Determine if Phone Number already exists in system
+        Phonenumber.findOne({
+                number: cleanedNumber
+            }, (err, foundNum) => {
+                if (!err) {
+                    if (!foundNum) {
 
-                    // Add number to database if not found
-                    phoneNumber.save((err) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            console.log(phoneNumber.number)
-                            sendDogMessage(phoneNumber.number).then(() => {
-                                Promise.resolve("Should have sent!")
-                                res.render('success')
-                            })
-                        }
-                    })
+                        //  Create new number for model
+                        const phoneNumber = new Phonenumber({
+                            number: cleanedNumber
+                        })
+
+                        // Add number to database if not found
+                        phoneNumber.save((err) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log("Saved " + phoneNumber.number + " to Database.")
+
+                                sendDogMessage(phoneNumber.number).then(() =>
+                                    res.render('success'))
+                            }
+                        })
+
+
+                    } else {
+                        // Inform User of already being signed up
+                        console.log("Number: " + foundNum.number + " already in database");
+                        res.render('failure')
+                    }
 
                 } else {
-                    // Inform User of already being signed up
-                    console.log("Number: " + foundNum.number + " already in database");
-                    res.render('failure')
+                    // Catches unforeseen errors
+                    res.send("Sorry, we are doing maintenance")
                 }
-
-            } else {
-                // Catches unforeseen errors
-                res.send("Sorry, we are doing maintenance")
             }
-        }
 
-    )
+        )
+    } catch (error) {
+        console.error(error);
+    }
 })
 
 module.exports = router

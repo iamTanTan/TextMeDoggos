@@ -1,7 +1,6 @@
 //  Import Statements
 const axios = require('axios');
 
-/*************************************************************************************/
 // TheDogAPI
 const dogApiKey = process.env.DOG_API_KEY
 const dogApiUrl = process.env.DOG_API_URL
