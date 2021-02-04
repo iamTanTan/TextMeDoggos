@@ -27,9 +27,9 @@ router.post('/', urlencodedParser, async (req, res) => {
         console.log(image)
 
         // Determine if Phone Number already exists in system
-        Phonenumber.findOne({
+        await Phonenumber.findOne({
                 number: cleanedNumber
-            }, (err, foundNum) => {
+            }, async (err, foundNum) => {
                 if (!err) {
                     if (!foundNum) {
 
@@ -44,9 +44,11 @@ router.post('/', urlencodedParser, async (req, res) => {
                                 console.log(err);
                             } else {
                                 console.log("Saved " + phoneNumber.number + " to Database.")
+                                res.render('success')
+                                sendDogMessage(phoneNumber.number)
+                                .then(console.log("sent"))
+                                .catch((err) => console.log(err));
 
-                                sendDogMessage(phoneNumber.number).then(() =>
-                                    res.render('success'))
                             }
                         })
 

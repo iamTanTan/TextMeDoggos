@@ -1,5 +1,10 @@
 // Import Statements
 const sendDailyDogMessage = require('./twilio-multisend-api.js')
+const Phonenumber = require('../models/phonenumber')
+
+const phoneArray = [];
+
+
 
 // This function controls the time of day at which the daily message is sent out
 const timeSendingDailyDogMessage = (arrayPhoneNumbers) => {
