@@ -1,6 +1,6 @@
 // Import Statements
 const dogNames = require('dog-names');
-const getDogImage = require('./dog-api.js');
+const getDogImage = require('./dogApi.js');
 
 // Twilio 
 const twilioNumber = process.env.MY_TWILIO_NUMBER;

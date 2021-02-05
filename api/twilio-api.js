@@ -1,6 +1,6 @@
 // Import Statements
 const dogNames = require('dog-names');
-const getDogImage = require('./dog-api.js');
+const getDogImage = require('./dogApi.js');
 
 // Twilio 
 const twilioNumber = process.env.MY_TWILIO_NUMBER;
@@ -17,7 +17,7 @@ const sendDogMessage = async (newNumber) => {
     console.log(imageArray);
 
     // Generate random doggo name message
-    const text = 'Here is ' + dogNames.allRandom() + ', a nice doggo just for you! Note: Text STOP to Stop receiving messages and START to resume.'
+    const text = 'Here is ' + dogNames.allRandom() + ', a nice doggo just for you!'
     console.log(text);
 
     // Create message utilizing twilio

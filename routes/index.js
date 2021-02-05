@@ -8,7 +8,7 @@ var urlencodedParser = bodyParser.urlencoded({
 })
 const _ = require('lodash')
 const sendDogMessage = require('../api/twilio-api.js')
-const getDogImage = require('../api/dog-api.js')
+const getDogImage = require('../api/dogApi.js')
 
 
 router.get('/', (req, res) => {
@@ -21,10 +21,6 @@ router.post('/', urlencodedParser, async (req, res) => {
         // Retrieve and clean data from user
         const rawInputNumber = req.body.p;
         const cleanedNumber = "+1" + _.camelCase(rawInputNumber)
-
-        //  For debugging only
-        const image = await getDogImage()
-        console.log(image)
 
         // Determine if Phone Number already exists in system
         await Phonenumber.findOne({
