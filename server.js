@@ -6,7 +6,7 @@ const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
-
+const timedExec = require('./timedExecution.js')
 const indexRouter = require('./routes/index')
 
 app.set('view engine', 'ejs')
