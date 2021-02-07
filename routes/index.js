@@ -1,14 +1,16 @@
 // Import Statements
 const express = require('express')
 const router = express.Router()
-const Phonenumber = require('../models/phonenumber')
+
+const numbers = require('../models/phonenumber')
+const Phonenumber = numbers.Phonenumber
 const bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({
     extended: false
 })
 const _ = require('lodash')
 const sendDogMessage = require('../api/twilio-api.js')
-const getDogImage = require('../api/dogApi.js')
+const mongoose = require('mongoose')
 
 
 router.get('/', (req, res) => {

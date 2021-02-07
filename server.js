@@ -2,12 +2,14 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+const PORT = process.env.PORT || 3000
 const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
-const timedExec = require('./timedExecution.js')
+const timedExec = require('./util/timedExecution.js')
 const indexRouter = require('./routes/index')
+
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -33,4 +35,10 @@ const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
-app.listen(process.env.PORT || 8080)
+app.listen(PORT, (err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(PORT);
+    }
+})

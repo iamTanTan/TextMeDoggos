@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// Defines the schema for entered phone numbers
 const phonenumberSchema = new mongoose.Schema({
     number: {
         type: String,
@@ -15,7 +16,7 @@ const getPhoneNumbers = async () => {
           if (err) {
                return console.log(err)
           }
-          console.log(result);
+          // console.log(result); for testing
           return result
      })
 }
