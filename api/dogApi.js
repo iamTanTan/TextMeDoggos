@@ -4,7 +4,7 @@ var config = {
   method: 'get',
   url: 'https://api.thedogapi.com/v1/images/search?limit=1&size=full',
   headers: { 
-    'x-api-key': "c20175c1-3aea-42c0-be21-841fbaf473b2"
+    'x-api-key': "c20175c1-3aea-42c0-be21-841fbaf473b2" // only working when hard coded for now...
   }
 };
 
