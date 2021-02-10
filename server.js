@@ -9,7 +9,12 @@ const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const timedExec = require('./util/timedExecution.js')
 const indexRouter = require('./routes/index')
+const proxy = require('http-proxy-middleware')
 
+module.exports = function(app) {
+    // add other server routes to path array
+    app.use(proxy(['/api' ], { target: 'http://localhost:3000' }));
+} 
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -42,3 +47,5 @@ app.listen(PORT, (err) => {
         console.log(PORT);
     }
 })
+
+timedExec()

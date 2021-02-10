@@ -10,7 +10,6 @@ var urlencodedParser = bodyParser.urlencoded({
 })
 const _ = require('lodash')
 const sendDogMessage = require('../api/twilio-api.js')
-const mongoose = require('mongoose')
 
 
 router.get('/', (req, res) => {
