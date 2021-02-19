@@ -19,6 +19,6 @@ const getDogImage = async () => {
         })
 }
 
-getDogImage()
+
 
 module.exports = getDogImage

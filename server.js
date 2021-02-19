@@ -7,7 +7,7 @@ const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
-const timedExec = require('./util/timedExecution.js')
+// const timedExec = require('./util/timedExecution.js')
 const indexRouter = require('./routes/index')
 const proxy = require('http-proxy-middleware')
 
@@ -47,5 +47,3 @@ app.listen(PORT, (err) => {
         console.log(PORT);
     }
 })
-
-timedExec()
