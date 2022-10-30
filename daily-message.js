@@ -1,7 +1,6 @@
 // Imports
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-}
+require("dotenv").config();
+
 const cron = require("node-cron");
 const sendDailyDogMessage = require("./api/twilio-multisend-api.js");
 const mongoose = require("mongoose");
